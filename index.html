@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Online Market</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .product {
+            background: white;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 8px;
+        }
+        button {
+            background: green;
+            color: white;
+            padding: 8px;
+            border: none;
+            cursor: pointer;
+        }
+        #cart {
+            margin-top: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Leo Vibe Online Market</h1>
+
+<div class="product">
+    <h3>Bag of Rice</h3>
+    <p>₦45,000</p>
+    <button onclick="addToCart('Bag of Rice', 45000)">Add to Cart</button>
+</div>
+
+<div class="product">
+    <h3>Vegetable Oil</h3>
+    <p>₦8,000</p>
+    <button onclick="addToCart('Vegetable Oil', 8000)">Add to Cart</button>
+</div>
+
+<div id="cart">
+    <h2>Cart</h2>
+    <ul id="cartItems"></ul>
+    <h3>Total: ₦<span id="total">0</span></h3>
+    <button onclick="checkout()">Order via WhatsApp</button>
+</div>
+
+<script>
+    let total = 0;
+    let items = [];
+
+    function addToCart(name, price) {
+        items.push(name + " - ₦" + price);
+        total += price;
+
+        let li = document.createElement("li");
+        li.textContent = name + " - ₦" + price;
+        document.getElementById("cartItems").appendChild(li);
+
+        document.getElementById("total").textContent = total;
+    }
+
+    function checkout() {
+        let message = "Hello, I want to order:\n\n";
+        items.forEach(item => {
+            message += item + "\n";
+        });
+        message += "\nTotal: ₦" + total;
+
+        let phone = "234XXXXXXXXXX"; // Replace with your WhatsApp number
+        let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+        window.open(url);
+    }
+</script>
+
+</body>
+</html>
